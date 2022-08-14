@@ -1,0 +1,24 @@
+{
+    "name": "cetera-labs/plugin-glossary",
+    "description": "Модуль «Глоссарий»",
+    "type": "cetera-cms-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniil Prokofev",
+            "email": "prokofiev.pub@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Glossary\\": "classes/"
+        }
+    },
+    "extra": {
+        "name": "glossary",
+        "title": "Glossary",
+        "description": "Glossary plugin"
+    },
+    "require": {}
+}

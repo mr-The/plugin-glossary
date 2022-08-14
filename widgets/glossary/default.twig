@@ -1,0 +1,40 @@
+{% extends "layout.twig" %} 
+
+{% block main %}
+<div class="grid-container">
+	<div class="grid-x grid-padding-x">
+		<div class="cell">
+			{% widget 'Breadcrumbs' %}
+		</div>
+	</div>
+</div>
+
+<div class="grid-container">
+	<div class="grid-x grid-padding-x">
+		<div class="cell">
+			{% block title %}<h1>{{ widget.getParam('page_h1') }}</h1>{% endblock %}
+		</div>
+	</div>
+</div>
+
+<div class="padding-top-12">
+	<div class="grid-container">
+		<div class="grid-x grid-padding-x">
+			<div class="cell">
+				<div class="{{ widget.getParam('css_class') }}">	
+					{% for m in widget.getParam('struct') %}
+						<h2>{{ m['char'] }}</h2>
+							<ul>
+							{% for n in m['data'] %}
+							<li><a href="{{ n.url }}" title="Описание термина &#171;{{ n.name }}&#187;">{{ n.name }}</a></li>
+							{% endfor %}
+						</ul>
+					{% endfor %}  
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %} 

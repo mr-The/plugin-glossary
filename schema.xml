@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema>
+
+<object name="glossary" description="Glossary[ru=Глоссарий]" fixed="1" handler="" plugin="">
+    <field name="name" type="1" pseudo_type="0" description="Term[ru=Термин]" length="1024" show="1" required="0" fixed="1" editor="0" editor_user="" default_value="" tag="1" />
+    <field name="alias" type="1" pseudo_type="0" description="Alias" length="255" show="1" required="1" fixed="1" editor="0" editor_user="" default_value="" tag="2" />
+    <field name="synonyms" type="1" pseudo_type="0" description="Synonyms[ru=Синонимы]" length="2048" show="1" required="0" fixed="1" editor="0" editor_user="" default_value="" tag="3" />
+    <field name="tag" type="3" pseudo_type="0" description="Sort[ru=Сортировка]" length="1" show="1" required="0" fixed="1" editor="0" editor_user="" default_value="100" tag="4" />
+	<field name="autor" type="6" pseudo_type="1003" description="Author[ru=Автор]" length="-1" show="1" required="1" fixed="1" editor="0" editor_user="" default_value="" tag="5" />
+    <field name="dat" type="5" pseudo_type="0" description="Date create[ru=Дата создания]" length="1" show="0" required="1" fixed="1" editor="0" editor_user="" default_value="" tag="6" />
+    <field name="dat_update" type="5" pseudo_type="0" description="Edit date[ru=Дата изменения]" length="1" show="0" required="1" fixed="1" editor="0" editor_user="" default_value="" tag="7" />
+    <field name="type" type="3" pseudo_type="0" description="Properties[ru=Свойства]" length="1" show="0" required="1" fixed="1" editor="0" editor_user="" default_value="" tag="8" />
+    <field name="idcat" type="6" pseudo_type="1008" description="Section[ru=Раздел]" length="0" show="0" required="1" fixed="1" editor="0" editor_user="" default_value="" tag="9" />
+    <field name="specification" type="2" pseudo_type="0" description="Specification[ru=Определение]" length="1" show="1" required="0" fixed="0" editor="29" editor_user="" default_value="" tag="10"/>
+    <field name="meta_title" type="1" pseudo_type="0" description="Meta title" length="1000" show="1" required="0" fixed="0" editor="1" editor_user="" default_value="" page="SEO" />
+	<field name="meta_keywords" type="1" pseudo_type="0" description="Meta keywords" length="1000" show="1" required="0" fixed="0" editor="16" editor_user="" default_value="" page="SEO" />
+	<field name="meta_description" type="1" pseudo_type="0" description="Meta description" length="1000" show="1" required="0" fixed="0" editor="16" editor_user="" default_value="" page="SEO" />
+</object>
+
+</schema>

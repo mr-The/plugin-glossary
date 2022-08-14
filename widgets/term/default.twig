@@ -1,0 +1,53 @@
+{% extends "layout.twig" %} 
+
+{% block main %}
+	<div class="grid-container">
+		<div class="grid-x grid-padding-x">
+			<div class="cell">
+				{% widget 'Breadcrumbs' %}
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-x grid-padding-x">
+			<div class="cell">
+				{% block title %}<h1>{{ widget.material.name }}</h1>{% endblock %}
+			</div>
+		</div>
+	</div>
+
+	<div class="padding-top-12">
+		<div class="grid-container padding-0">
+			<div class="x-cetera-widget" data-class="Cetera.fo.Material" data-id="{{ widget.material.id }}" data-type="{{ widget.material.objectDefinition.alias }}">
+				<div class="grid-x grid-padding-x">
+					<div class="cell">
+						<div class="{{ widget.getParam('css_class') }}__specification">
+							{{ widget.material.specification|raw }}
+						</div>
+					</div>
+					{% if widget.material.synonyms != '' %}
+					<div class="cell">
+						<div class="{{ widget.getParam('css_class') }}__synonyms padding-bottom-2">Синонимы: {{ widget.material.synonyms }}</div>
+					</div>
+					{% endif %}	
+					{% if widget.getParam('links') != [] %}
+					<div class="cell">
+						<div class="{{ widget.getParam('css_class') }}__links">
+							<p class="margin-bottom-1">Ссылки:</p>
+							<ul>
+								{% for m in widget.getParam('links') %}
+									<li>
+										<a href="{{ m['link'] }}" title="{{ m['title'] }}">{{ m['title'] }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					{% endif %}											
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %} 

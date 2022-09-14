@@ -39,13 +39,23 @@ class WidgetGlossary extends \Cetera\Widget\Templateable
     if(!empty($title)) {
       $a->setPageProperty('title', $title);
       $a->addHeadString('<meta property="og:title" content="'.$title.'"/>', 'og:title');
+    } else {
+      $a->setPageProperty('title', "Глоссарий сайта");
+      $a->addHeadString('<meta property="og:title" content="'."Глоссарий сайта".'"/>', 'og:title');
     }
+
     if(!empty($description)) {
       $a->setPageProperty('description', $description);
       $a->addHeadString('<meta property="og:description" content="'.htmlspecialchars($description).'"/>', 'og:description');
+    } else {
+      $a->setPageProperty('description', "Глоссарий сайта. Словарь терминов с их определением и ссылками на страницы сайта, на которых они упоминаются");
+      $a->addHeadString('<meta property="og:description" content="'."Глоссарий сайта. Словарь терминов с их определением и ссылками на страницы сайта, на которых они упоминаются".'"/>', 'og:description');
     }
+
     if(!empty($keywords)) {
       $a->setPageProperty('keywords', $keywords);
+    } else {
+      $a->setPageProperty('keywords', "Глоссарий, словарь, термин, определение");
     }
 
     $a->getWidget('Glossary', array(

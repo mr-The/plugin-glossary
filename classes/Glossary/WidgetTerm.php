@@ -50,17 +50,28 @@ class WidgetTerm extends \Cetera\Widget\Templateable
     $title = $termMaterial['meta_title'];
     $description = $termMaterial['meta_description'];
     $keywords = $termMaterial['meta_keywords'];
+    $termName = $termMaterial['name'];
 
     if(!empty($title)) {
       $a->setPageProperty('title', $title);
       $a->addHeadString('<meta property="og:title" content="'.$title.'"/>', 'og:title');
+    } else {
+      $a->setPageProperty('title', "Термин &laquo;$termName&raquo;");
+      $a->addHeadString('<meta property="og:title" content="'."Термин &laquo;$termName&raquo;".'"/>', 'og:title');
     }
+
     if(!empty($description)) {
       $a->setPageProperty('description', $description);
       $a->addHeadString('<meta property="og:description" content="'.htmlspecialchars($description).'"/>', 'og:description');
+    } else {
+      $a->setPageProperty('description', "Глоссарий сайта. Страница термина &laquo;$termName&raquo;");
+      $a->addHeadString('<meta property="og:description" content="'."Глоссарий сайта. Страница термина &laquo;$termName&raquo;".'"/>', 'og:description');
     }
+
     if(!empty($keywords)) {
       $a->setPageProperty('keywords', $keywords);
+    } else {
+      $a->setPageProperty('keywords', "Глоссарий, термин, $termName");
     }
 
     $a->getWidget('Term', array(

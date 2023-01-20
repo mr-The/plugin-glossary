@@ -96,7 +96,7 @@ class PageHandler {
       $isHaveTerm = preg_match($regExp, $htmlWithoutNoIndexContent, $matches, PREG_OFFSET_CAPTURE);
     }
 
-    if($isHaveTerm === 1) {
+    if(isset($isHaveTerm) && $isHaveTerm === 1) {
       $this->termFinded($term);
       return ['start' => $matches[0][1] + 1, 'length' => strlen($term['term']), 'term' => mb_substr($matches[0][0], 1, mb_strlen($term['term']))];
     }

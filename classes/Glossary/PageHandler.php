@@ -104,7 +104,7 @@ class PageHandler {
     return false;
   }
 
-  public function termFindRegExp($term) {
+  public static function termFindRegExp($term) {
     return '/([^a-zа-яА-ЯЁё\.-]' . $term . '$|^' . $term . '[^a-zа-яА-ЯЁё\.-]|[^a-zа-яА-ЯЁё\.-]'. $term . '[^a-zа-яА-ЯЁё-])/ui';
   }
 

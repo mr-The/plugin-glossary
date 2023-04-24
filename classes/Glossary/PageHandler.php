@@ -1,7 +1,7 @@
 <?php
 
 namespace Glossary;
-
+ini_set("mbstring.regex_retry_limit", "10000000");
 class PageHandler {
 
   protected $data;

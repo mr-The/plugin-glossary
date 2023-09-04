@@ -46,7 +46,8 @@ class PageHandler {
     $typeId = \Cetera\ObjectDefinition::findByAlias('glossary')->getId();
     $glossaryMaterials = \Cetera\ObjectDefinition::findById($typeId)->getMaterials();
     $termsAndSynonyms = $this->createDataForReferences($glossaryMaterials);
-
+	$html = str_replace("||", "", $html);
+	
     $terms = array_reduce($termsAndSynonyms, function($result, $termData) use ($html) {
       if(mb_stripos($html, $termData['term']) !== false) {
         $termData['isFinded'] = false;

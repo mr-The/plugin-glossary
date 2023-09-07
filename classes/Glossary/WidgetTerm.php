@@ -119,14 +119,9 @@ class WidgetTerm extends \Cetera\Widget\Templateable
   }
 
   static public function clearCache() {
-    $typeId = \Cetera\ObjectDefinition::findByAlias('glossary')->getId();
-    $glossaryMaterials = \Cetera\ObjectDefinition::findById($typeId)->getMaterials();
-
-    for($i = 0; $i < count($glossaryMaterials); $i++) {
-      $slot = new \Cetera\Cache\Slot\User($glossaryMaterials[$i]->getUrl());
-      if (false !== $slot->load()) {
-        $slot->remove();;
-      }
-    }
+    $cacheStorage = new \Laminas\Cache\Storage\Adapter\Filesystem([
+		'cache_dir'=>FILECACHE_DIR,
+	]);
+	$cacheStorage->flush();
   }
 }

@@ -19,7 +19,17 @@ class PageHandler {
   public function __invoke(&$res) {
     $newHtml = $res;
     $htmlWithoutNoIndexContent = $this->replaceNoIndexContent($newHtml);
-    $this->data = $this->getContainsTermsData($htmlWithoutNoIndexContent);
+
+	$slot = new \Cetera\Cache\Slot\User($_SERVER["REQUEST_URI"]);
+    $cachedTerms = $slot->load();
+	
+    if ($cachedTerms === false) {
+		$this->data = $this->getContainsTermsData($htmlWithoutNoIndexContent);
+		$slot->save($this->data);
+    } else {
+		$this->data = $cachedTerms;
+	}
+
     for($i = 0; $i < count($this->data); $i++) {
       $term = $this->data[$i];
       $findTerm = $this->findTermPos($htmlWithoutNoIndexContent, $newHtml, $term);

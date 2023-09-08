@@ -12,9 +12,9 @@ $this->registerWidget(array(
     'not_placeable' => true,
 ));
 
-\Cetera\Event::attach(EVENT_CORE_MATERIAL_AFTER_SAVE, function($event, $data){	
-	\Glossary\WidgetTerm::clearCache();
-});
+// \Cetera\Event::attach(EVENT_CORE_MATERIAL_AFTER_SAVE, function($event, $data){	
+// 	\Glossary\WidgetTerm::clearCache();
+// });
 
 if($this->isFrontOffice()) {
     $typeId = \Cetera\ObjectDefinition::findByAlias('glossary')->getId();

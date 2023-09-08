@@ -20,7 +20,7 @@ class PageHandler {
     $newHtml = $res;
     $htmlWithoutNoIndexContent = $this->replaceNoIndexContent($newHtml);
 
-	$slot = new \Cetera\Cache\Slot\User($_SERVER["REQUEST_URI"]);
+	$slot = new \Cetera\Cache\Slot\User(str_replace(['?', '=', '+', '%'],'_',$_SERVER["REQUEST_URI"]));
     $cachedTerms = $slot->load();
 	
     if ($cachedTerms === false) {

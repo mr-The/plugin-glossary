@@ -121,7 +121,8 @@ class WidgetTerm extends \Cetera\Widget\Templateable
   static public function clearCache() {
     $cacheStorage = new \Laminas\Cache\Storage\Adapter\Filesystem([
 		'cache_dir'=>FILECACHE_DIR,
+		'ttl'=>3600 * 24,
 	]);
-	$cacheStorage->flush();
+	$cacheStorage->clearExpired();
   }
 }

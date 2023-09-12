@@ -20,8 +20,9 @@ class PageHandler {
     $newHtml = $res;
     $htmlWithoutNoIndexContent = $this->replaceNoIndexContent($newHtml);
 
-	$slot = new \Cetera\Cache\Slot\User(str_replace(['?', '=', '+', '%'],'_',$_SERVER["REQUEST_URI"]));
-    $cachedTerms = $slot->load();
+	$url = strtok($_SERVER["REQUEST_URI"], '?');
+	$slot = new \Cetera\Cache\Slot\User(str_replace(['?', '=', '+', '%', '&'],'_',$url));
+	$cachedTerms = strpos(strtok('?'), 'query') === 0 ? false : $slot->load();
 	
     if ($cachedTerms === false) {
 		$this->data = $this->getContainsTermsData($htmlWithoutNoIndexContent);

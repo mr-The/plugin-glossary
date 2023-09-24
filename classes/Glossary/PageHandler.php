@@ -54,17 +54,22 @@ class PageHandler {
   }
 
   protected function getContainsTermsData($html) {
-    $typeId = \Cetera\ObjectDefinition::findByAlias('glossary')->getId();
-    $glossaryMaterials = \Cetera\ObjectDefinition::findById($typeId)->getMaterials();
-    $termsAndSynonyms = $this->createDataForReferences($glossaryMaterials);
-	$html = str_replace("||", "", $html);
-	
-    $terms = array_reduce($termsAndSynonyms, function($result, $termData) use ($html) {
-      if(mb_stripos($html, $termData['term']) !== false) {
-        $termData['isFinded'] = false;
-        $result[] = $termData;
-      }
-      return $result;
+    $typeIdGlossary = \Cetera\ObjectDefinition::findByAlias('glossary')->getId();
+    $glossaryMaterials = \Cetera\ObjectDefinition::findById($typeIdGlossary)->getMaterials();
+	$typeIdCatalog = \Cetera\ObjectDefinition::findByAlias('sale_products')->getId();
+    $catalogMaterials = \Cetera\ObjectDefinition::findById($typeIdCatalog)->getMaterials();
+	$allMaterials = [...$glossaryMaterials, ...$catalogMaterials];
+    $termsAndSynonyms = $this->createDataForReferences($allMaterials);
+	$html = str_replace("|", "", $html);
+	$lowerHtml = mb_strtolower($html);
+    $terms = array_reduce($termsAndSynonyms, function($result, $termData) use ($html, $lowerHtml) {
+		$finded = str_contains($lowerHtml, mb_strtolower($termData['term']));
+		$finded ? $offset = preg_match($this->termFindRegExp($termData['term']), $html) : $offset = false;
+		if(isset($offset) && $offset === 1) {
+			$termData['isFinded'] = false;
+			$result[] = $termData;
+		}
+		return $result;
     },[]);
     
     return $this->getOtherTermsContainsTerm($terms);

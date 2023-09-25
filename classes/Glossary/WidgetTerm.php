@@ -118,8 +118,13 @@ class WidgetTerm extends \Cetera\Widget\Templateable
     return $links;
   }
 
-  static public function clearCache() {
-    $cacheStorage = new \Laminas\Cache\Storage\Adapter\Filesystem([
+  static public function clearCache($data) {
+	str_ends_with($data['material']['url'], 'index') ? $url = substr($data['material']['url'], 0, -5) : $url = $data['material']['url']."/";
+	$slot = new \Cetera\Cache\Slot\User(str_replace(['?', '=', '+', '%', '&'],'_',$url));
+	if (false !== $slot->load()) {
+        $slot->remove();
+    }
+	$cacheStorage = new \Laminas\Cache\Storage\Adapter\Filesystem([
 		'cache_dir'=>FILECACHE_DIR,
 		'ttl'=>3600 * 24,
 	]);

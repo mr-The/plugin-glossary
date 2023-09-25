@@ -12,8 +12,8 @@ $this->registerWidget(array(
     'not_placeable' => true,
 ));
 
-\Cetera\Event::attach(EVENT_CORE_MATERIAL_AFTER_SAVE, function($event, $data){	
-	\Glossary\WidgetTerm::clearCache();
+\Cetera\Event::attach(EVENT_CORE_MATERIAL_AFTER_SAVE, function($event, $data){
+	\Glossary\WidgetTerm::clearCache($data);
 });
 
 if($this->isFrontOffice()) {

@@ -25,7 +25,7 @@ class PageHandler {
 	$cachedTerms = strpos(strtok('?'), 'query') === 0 ? false : $slot->load();
 	
     if ($cachedTerms === false) {
-		$this->data = $this->getContainsTermsData($htmlWithoutNoIndexContent);
+		$this->data = $this->getContainsTermsData($htmlWithoutNoIndexContent, $url);
 		$slot->save($this->data);
     } else {
 		$this->data = $cachedTerms;
@@ -53,7 +53,7 @@ class PageHandler {
     return $onlyText;
   }
 
-  protected function getContainsTermsData($html) {
+  protected function getContainsTermsData($html, $url) {
     $typeIdGlossary = \Cetera\ObjectDefinition::findByAlias('glossary')->getId();
     $glossaryMaterials = \Cetera\ObjectDefinition::findById($typeIdGlossary)->getMaterials();
 	$typeIdCatalog = \Cetera\ObjectDefinition::findByAlias('sale_products')->getId();
@@ -62,7 +62,12 @@ class PageHandler {
     $termsAndSynonyms = $this->createDataForReferences($allMaterials);
 	$html = str_replace("|", "", $html);
 	$lowerHtml = mb_strtolower($html);
-    $terms = array_reduce($termsAndSynonyms, function($result, $termData) use ($html, $lowerHtml) {
+	str_ends_with($url, '/') ? $url = $url : $url = $url."/";
+    $terms = array_reduce($termsAndSynonyms, function($result, $termData) use ($html, $lowerHtml, $url) {
+		str_ends_with($termData['url'], 'index') ? $termData['url'] = substr($termData['url'], 0, -5) : $termData['url'] = $termData['url']."/";
+		if ($url == $termData['url']) {
+			return $result;
+		}
 		$finded = str_contains($lowerHtml, mb_strtolower($termData['term']));
 		$finded ? $offset = preg_match($this->termFindRegExp($termData['term']), $html) : $offset = false;
 		if(isset($offset) && $offset === 1) {

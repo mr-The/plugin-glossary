@@ -5,6 +5,7 @@ namespace Glossary;
 class PageHandler {
 
   protected $data;
+  protected $isMainDomain;
 
   static public function init($glossaryCatalogs) {
     $a = \Cetera\Application::getInstance();
@@ -30,6 +31,9 @@ class PageHandler {
     } else {
 		$this->data = $cachedTerms;
 	}
+
+	$a = \Cetera\Application::getInstance();
+	$a->getServer()['id'] === 1 ? $this->isMainDomain = true : $this->isMainDomain = false;
 
     for($i = 0; $i < count($this->data); $i++) {
       $term = $this->data[$i];
@@ -142,6 +146,7 @@ class PageHandler {
   }
 
   protected function wrapTerm($text, $link) {
+	$this->isMainDomain ?: $link = 'https://cetera.ru'.$link;
     return "<a href='$link' title='Определение термина &#171;$text&#187;'>$text</a>";
   }
 }

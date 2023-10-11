@@ -45,7 +45,9 @@ class WidgetTerm extends \Cetera\Widget\Templateable
     if ($cachedLinks === false) {
       $links = self::findTermReference($termMaterial);
       $slot->save($links);
-    }
+    } else {
+		$links = [];
+	}
 
     $title = $termMaterial['meta_title'];
     $description = $termMaterial['meta_description'];

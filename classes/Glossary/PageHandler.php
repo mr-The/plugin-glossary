@@ -22,8 +22,8 @@ class PageHandler {
     $htmlWithoutNoIndexContent = $this->replaceNoIndexContent($newHtml);
 
 	$url = strtok($_SERVER["REQUEST_URI"], '?');
-	$url = hash('murmur3f', $url);
-	$slot = new \Cetera\Cache\Slot\User(str_replace(["?", "=", "+", "%", "&", ")", "(", "$", "@", "!", "~", "[", "]", "\\"],"_",$url));
+	$hashedUrl = hash('murmur3f', $url);
+	$slot = new \Cetera\Cache\Slot\User(str_replace(["?", "=", "+", "%", "&", ")", "(", "$", "@", "!", "~", "[", "]", "\\"],"_",$hashedUrl));
 	$cachedTerms = strpos(strtok('?'), 'query') === 0 ? false : $slot->load();
 	
     if ($cachedTerms === false) {

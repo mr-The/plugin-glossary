@@ -122,6 +122,7 @@ class WidgetTerm extends \Cetera\Widget\Templateable
 
   static public function clearCache($data) {
 	str_ends_with($data['material']['url'], 'index') ? $url = substr($data['material']['url'], 0, -5) : $url = $data['material']['url']."/";
+	$url = hash('murmur3f', $url);
 	$slot = new \Cetera\Cache\Slot\User(str_replace(['?', '=', '+', '%', '&'],'_',$url));
 	if (false !== $slot->load()) {
         $slot->remove();

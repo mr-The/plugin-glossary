@@ -65,8 +65,12 @@ class PageHandler {
     $a = \Cetera\Application::getInstance();
     $s = $a->getServer();
 
-    $othersMaterialsCatalog = $s->getChildByAlias('for_glossary');
-    $this->getOtherMaterials( $othersMaterialsCatalog );
+    try {
+      $othersMaterialsCatalog = $s->getChildByAlias('for_glossary');
+      $this->getOtherMaterials( $othersMaterialsCatalog );
+    } catch (\Cetera\Exception\CMS $e) {
+      $this->otherMatearials = [];
+    }
 
     $typeIdGlossary = \Cetera\ObjectDefinition::findByAlias('glossary')->getId();
     $glossaryMaterials = \Cetera\ObjectDefinition::findById($typeIdGlossary)->getMaterials();
